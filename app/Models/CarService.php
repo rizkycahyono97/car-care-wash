@@ -18,6 +18,7 @@ class CarService extends Model
         'price',
         'about',
         'photo',
+        'icon',
         'duration_in_hour'
     ];
 
