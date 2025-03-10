@@ -20,13 +20,13 @@ class StoreService extends Model
         'car_store_id'
     ];
 
-    // M:1 to CarStore
+    // M:M to CarStore
     public function store(): BelongsTo
     {
         return $this->belongsTo(CarStore::class, 'car_store_id');
     }
     
-    // M:1 to CarService
+    // M:M to CarService
     public function service(): BelongsTo
     {
         return $this->belongsTo(CarService::class, 'car_service_id');
