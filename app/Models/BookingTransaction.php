@@ -21,7 +21,7 @@ class BookingTransaction extends Model
         'total_amount',
         'car_store_id',
         'car_service_id',
-        'started_id',
+        'started_at',
         'time_at'
     ];
 

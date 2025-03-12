@@ -50,8 +50,8 @@ class CarServiceResource extends Resource
                     ->image(),
 
                 FileUpload::make('icon')
-                ->required()
-                ->image(),
+                    ->required()
+                    ->image(),
 
                 Textarea::make('about')
                     ->required()
