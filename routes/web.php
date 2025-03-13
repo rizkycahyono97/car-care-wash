@@ -20,7 +20,7 @@ Route::get('/store/details/{carStore:slug}', [FrontController::class, 'details']
 
 Route::get('/booking/payment/submit', [FrontController::class, 'booking_payment_store'])->name('front.booking.payment.store');
 
-Route::get('/booking/{carStore.slug}', [FrontController::class, 'booking'])->name('front.booking');
+Route::get('/booking/{carStore:slug}', [FrontController::class, 'booking'])->name('front.booking');
 
 Route::get('/booking/{carStore:slug}/{carService:slug}', [FrontController::class, 'booking_store'])->name('front.booking.store');
 
