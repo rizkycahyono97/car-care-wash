@@ -29,7 +29,7 @@
         </div>
         <section id="Store-list" class="flex flex-col gap-6 px-4 mt-[30px]">
             @forelse ($stores as $store)
-                <a href="#" class="card">
+                <a href="{{ route('front.details', $store->slug) }}" class="card">
                     <div
                         class="flex flex-col gap-4 rounded-[20px] ring-1 ring-[#E9E8ED] pb-4 bg-white overflow-hidden transition-all duration-300 hover:ring-2 hover:ring-[#FF8E62]">
                         <div class="w-full h-[120px] flex shrink-0 overflow-hidden relative">
