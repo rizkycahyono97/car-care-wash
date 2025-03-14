@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBookingRequest;
-use App\Models\CarService;
-use App\Models\CarStore;
+use Carbon\Carbon;
 use App\Models\City;
+use App\Models\CarStore;
+use App\Models\CarService;
 use Illuminate\Http\Request;
+use App\Models\BookingTransaction;
+use App\Http\Requests\StoreBookingRequest;
+use App\Http\Requests\StoreBookingPaymentRequest;
 
 class FrontController extends Controller
 {
@@ -95,10 +98,56 @@ class FrontController extends Controller
     // 
     public function booking_payment(CarStore $carStore, CarService $carService)
     {
-        // dd($carStore, $carService);
+        $ppn = 0.11;
+        $totalPpn = $ppn * $carService->price;
+        $bookingFee = 25000;
+        $totalGrandTotal = $totalPpn + $bookingFee + $carService->price;
 
-        session()->put('totalAmount', $carService->price);
+        // dd(number_format($totalGrandTotal, 0, ',', '.'));
+
+        session()->put('totalAmount', $totalGrandTotal);
         
-        return view('front.payment', compact('carService', 'carStore'));
+        return view('front.payment', compact('carService', 'carStore', 'totalPpn', 'bookingFee', 'totalGrandTotal',));
+    }
+
+    // simpan ke database
+    public function booking_payment_store(StoreBookingPaymentRequest $request)
+    {
+        // dd(session()->all());
+
+        $customerName = session()->get('customerName', 'Guest');
+        $customerPhoneNumber = session()->get('customerPhoneNumber');
+        $totalAmount = session()->get('totalAmount');
+        $customerTimeAt = session()->get('customerTimeAt');
+        $serviceTypeId = session()->get('serviceTypeId');
+        $carStoreId = session()->get('carStoreId');
+
+        $bookingTransactionId = null;
+
+        if ($request->hasFile('proof')) {
+            $proofPath = $request->file('proof')->store('proofs', 'public');
+            $validated['proof'] = $proofPath;
+        }
+
+        $validated['name'] = $customerName;
+        $validated['total_amount'] = $totalAmount;
+        $validated['phone_number'] = $customerPhoneNumber;
+        $validated['started_at'] = Carbon::tomorrow()->format('Y-m-d');
+        $validated['time_at'] = $customerTimeAt;
+        $validated['car_service_id'] = $serviceTypeId;
+        $validated['car_store_id'] = $carStoreId;
+        $validated['is_paid'] = false;
+        $validated['trx_id'] = BookingTransaction::generateUniqueTrxId();
+
+        $newBooking = BookingTransaction::create($validated);
+
+        $bookingTransactionId = $newBooking->id;
+
+        return redirect()->route('front.success.booking', $bookingTransactionId);
+    }
+
+    public function success_booking(BookingTransaction $bookingTransaction)
+    {
+        return view('front.success_booking', compact('bookingTransaction'));
     }
 }
