@@ -15,7 +15,7 @@
     <main
         class="bg-[#FAFAFA] max-w-[640px] mx-auto min-h-screen relative flex flex-col has-[#CTA-nav]:pb-[120px] has-[#Bottom-nav]:pb-[120px]">
         <div id="Top-nav" class="flex items-center justify-between px-4 pt-5">
-            <a href="details.html">
+            <a href="{{ url()->previous() }}">
                 <div class="w-10 h-10 flex shrink-0">
                     <img src="{{ asset('assets/images/icons/back.svg') }}" alt="icon">
                 </div>
@@ -63,8 +63,9 @@
             </div>
         </div>
         <div class="flex h-full flex-1 mt-5">
-            <form action="{{ route('front.booking.store', [$carStore->slug, $service->slug]) }}"
+            <form method="POST" action="{{ route('front.booking.store', [$carStore->slug, $service->slug]) }}"
                 class="w-full flex flex-col rounded-t-[30px] p-5 pt-[30px] gap-[26px] bg-white overflow-x-hidden mb-0 mt-auto">
+                @csrf
                 <div class="flex flex-col gap-2">
                     <h2 class="font-semibold">Choose Day</h2>
                     <div class="flex items-center gap-2">

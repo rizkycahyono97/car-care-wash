@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookingRequest;
 use App\Models\CarService;
 use App\Models\CarStore;
 use App\Models\City;
@@ -66,5 +67,38 @@ class FrontController extends Controller
         $service = CarService::where('id', $serviceTypeId)->first();
 
         return view('front.booking', compact('carStore', 'service'));
+    }
+
+    // Store booking validasi dari StoreBookingRequest laravel
+    public function booking_store(StoreBookingRequest $request)
+    {
+        $customerName  = $request->input('name');
+        $customerPhoneNumber = $request->input('phone_number');
+        $customerTimeAt = $request->input('time_at');
+
+        // simpan ke dalam session
+        session()->put('customerName', $customerName);
+        session()->put('customerPhoneNumber', $customerPhoneNumber);
+        session()->put('customerTimeAt', $customerTimeAt);
+
+        // dd(session()->all());
+
+        // ambil data dari session 
+        $serviceTypeId = session()->get('serviceTypeId');
+        $carStoreId = session()->get('carStoreId');
+
+        // dd($carStoreId, $serviceTypeId);
+
+        return redirect()->route('front.booking.payment', [$carStoreId, $serviceTypeId]);
+    }
+
+    // 
+    public function booking_payment(CarStore $carStore, CarService $carService)
+    {
+        // dd($carStore, $carService);
+
+        session()->put('totalAmount', $carService->price);
+        
+        return view('front.payment', compact('carService', 'carStore'));
     }
 }
