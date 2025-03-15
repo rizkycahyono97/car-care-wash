@@ -70,19 +70,19 @@
                 <div id="Price-details" class="flex flex-col gap-[10px]">
                     <div class="flex items-center justify-between">
                         <p class="text-sm leading-[21px]">Gold Wash Price</p>
-                        <p class="font-semibold">Rp. {{ number_format($carService->price) }}</p>
+                        <p class="font-semibold">Rp. {{ number_format($carService->price, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="text-sm leading-[21px]">Booking Fee</p>
-                        <p class="font-semibold">Rp {{ number_format($bookingFee) }}</p>
+                        <p class="font-semibold">Rp {{ number_format($bookingFee, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="text-sm leading-[21px]">PPN 11%</p>
-                        <p class="font-semibold">Rp {{ number_format($totalPpn) }}</p>
+                        <p class="font-semibold">Rp {{ number_format($totalPpn, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="text-sm leading-[21px]">Grand Total</p>
-                        <p class="font-bold text-xl leading-[30px] text-[#FF8E62]">Rp {{ number_format($totalGrandTotal) }}</p>
+                        <p class="font-bold text-xl leading-[30px] text-[#FF8E62]">Rp {{ number_format($totalGrandTotal, 0, ',', '.') }}</p>
                     </div>
                 </div>
             </div>
