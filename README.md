@@ -43,7 +43,7 @@ Aplikasi **Car Care Wash** dari BuildWithAngga menggunakan **Laravel** dan **Spa
 - **Laravel**: Framework utama untuk membangun aplikasi.
 - **Filament**: untuk membuat fitur CRUD menjadi mudah.
 - **MySQL**: Basis data untuk menyimpan data keuangan.
-- **TailwindCSS**: (opsional) Untuk antarmuka pengguna (UI).
+- **TailwindCSS**: Untuk antarmuka pengguna (UI).
 
 ---
 
