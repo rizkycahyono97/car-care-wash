@@ -60,9 +60,8 @@ Aplikasi **Car Care Wash** dari BuildWithAngga menggunakan **Laravel** dan **Spa
    cp .env.example .env
    php artisan key:generate
    npm install
-   npm run build
    php artisan migrate
-   php artisan octane:frankenphp --port 8080 && npm run dev
+   php artisan serve
 3. **Optimize Laravel**:
    ```bash
    php artisan config:cache
